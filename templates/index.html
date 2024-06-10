@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="flash-container">
+        {% for card in flashcards %}
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+                <div class="flashcard-front">
+                    <p>{{ card.question | safe }}</p>
+                </div>
+                <div class="flashcard-back">
+                    <div class="flashcard-content">
+                        <p>{{ card.answer }}</p>
+                    </div>
+                    <div class="flashcard-footer">
+                        <a href="{{ url_for('edit', id=card.id) }}" class="edit-link">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="flashcard" onclick="window.location.href='{{ url_for('add') }}'">
+            <div class="flashcard-inner">
+                <div class="flashcard-front">
+                    <p>+</p>
+                </div>
+                <div class="flashcard-back">
+                    <div class="flashcard-content">
+                        <p>Add New Card</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
