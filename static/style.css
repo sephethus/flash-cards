@@ -25,9 +25,11 @@ body {
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
+    justify-content: space-between;
     padding: 20px;
-    width: 100%;
-    max-width: 1200px;
+    width: 1350px;
+    max-width: 1440px;
+    box-sizing: border-box;
 }
 
 h2 {
@@ -74,13 +76,15 @@ h2 {
 
 .flashcard {
     perspective: 1000px;
-    margin: 10px;
+    margin: 5px;
     cursor: pointer;
+    flex: 1 0 calc(33.333% - 30px);
+    max-width: 33%;
 }
 
 .flashcard-inner {
-    width: 350px;  /* New width */
-    height: 550px; /* New height */
+    width: 100%;
+    height: 650px; /* New height */
     text-align: left;
     transition: transform 0.6s;
     transform-style: preserve-3d;
@@ -118,7 +122,9 @@ h2 {
 
 .flashcard-back {
     transform: rotateY(180deg);
+    justify-content: center;
 }
+
 
 .flashcard-front p, .flashcard-back p {
     font-size: 13px;

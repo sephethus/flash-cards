@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_wtf import FlaskForm
-from wtforms import TextAreaField, StringField, SubmitField
+from wtforms import TextAreaField, SubmitField
 from wtforms.validators import DataRequired
 
 import logging
@@ -20,7 +20,7 @@ class Flashcard(db.Model):
 
 class FlashcardForm(FlaskForm):
     question = TextAreaField('Question', validators=[DataRequired()])
-    answer = StringField('Answer', validators=[DataRequired()])
+    answer = TextAreaField('Answer', validators=[DataRequired()])
     submit = SubmitField('')
 
 
