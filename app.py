@@ -1,8 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_wtf import FlaskForm
+from flask_migrate import Migrate
 from wtforms import TextAreaField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Optional
 
 import logging
 from logging.handlers import RotatingFileHandler
@@ -12,15 +13,18 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flashcards.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'mysecretkey'
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 class Flashcard(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.String(500), nullable=False)
     answer = db.Column(db.String(500), nullable=False)
+    additional_content = db.Column(db.Text, nullable=True)
 
 class FlashcardForm(FlaskForm):
     question = TextAreaField('Question', validators=[DataRequired()])
     answer = TextAreaField('Answer', validators=[DataRequired()])
+    additional_content = TextAreaField('Additional Content', validators=[Optional()])
     submit = SubmitField('')
 
 
@@ -34,7 +38,11 @@ def add():
     form = FlashcardForm()
     form.submit.label.text = 'Add Card'
     if form.validate_on_submit():
-        flashcard = Flashcard(question=form.question.data, answer=form.answer.data)
+        flashcard = Flashcard(
+            question=form.question.data,
+            answer=form.answer.data,
+            additional_content=form.additional_content.data  # Ensure additional_content is captured
+        )
         db.session.add(flashcard)
         db.session.commit()
         return redirect(url_for('index'))
@@ -48,6 +56,7 @@ def edit(id):
     if form.validate_on_submit():
         flashcard.question = form.question.data
         flashcard.answer = form.answer.data
+        flashcard.additional_content = form.additional_content.data  # Ensure additional_content is updated
         db.session.commit()
         flash('Flashcard updated successfully')
         return redirect(url_for('index'))
