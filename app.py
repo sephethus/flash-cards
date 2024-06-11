@@ -41,11 +41,11 @@ def add():
         flashcard = Flashcard(
             question=form.question.data,
             answer=form.answer.data,
-            additional_content=form.additional_content.data  # Ensure additional_content is captured
+            additional_content=form.additional_content.data
         )
         db.session.add(flashcard)
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('index') + f'#flashcard-{flashcard.id}')
     return render_template('add.html', form=form)
 
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
@@ -56,10 +56,10 @@ def edit(id):
     if form.validate_on_submit():
         flashcard.question = form.question.data
         flashcard.answer = form.answer.data
-        flashcard.additional_content = form.additional_content.data  # Ensure additional_content is updated
+        flashcard.additional_content = form.additional_content.data
         db.session.commit()
         flash('Flashcard updated successfully')
-        return redirect(url_for('index'))
+        return redirect(url_for('index') + f'#flashcard-{flashcard.id}')
     return render_template('edit.html', form=form, flashcard=flashcard)
 
 if __name__ == '__main__':
