@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
+    <div class="edit-container">
         <h2>Edit Flashcard</h2>
         <form method="POST" action="{{ url_for('edit', id=flashcard.id) }}">
             {{ form.hidden_tag() }}
@@ -17,7 +17,7 @@
             </div>
             <div class="form-group">
                 {{ form.answer.label }}<br>
-                {{ form.answer(size=80, class_="form-control") }}<br>
+                {{ form.answer(rows=5, class_="form-control") }}<br>
             </div>
             <div class="form-group">
                 {{ form.additional_content.label }}<br>
@@ -26,6 +26,9 @@
             <div class="form-group">
                 {{ form.submit(class_="btn btn-primary") }}
             </div>
+        </form>
+        <form method="POST" action="{{ url_for('delete', id=flashcard.id) }}" style="margin-top: 20px;">
+            <button type="submit" class="btn btn-danger">Delete</button>
         </form>
         <a href="{{ url_for('index') }}" class="back-link">Back to Flashcards</a>
     </div>

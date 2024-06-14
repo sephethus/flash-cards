@@ -62,5 +62,13 @@ def edit(id):
         return redirect(url_for('index') + f'#flashcard-{flashcard.id}')
     return render_template('edit.html', form=form, flashcard=flashcard)
 
+@app.route('/delete/<int:id>', methods=['POST'])
+def delete(id):
+    flashcard = Flashcard.query.get_or_404(id)
+    db.session.delete(flashcard)
+    db.session.commit()
+    flash('Flashcard deleted successfully')
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     app.run(debug=True)

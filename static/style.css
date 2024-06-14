@@ -3,33 +3,9 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f0f0f0;
+    background-color: #000000;
     margin: 0;
     font-family: Arial, sans-serif;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 600px;
-}
-
-.flash-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 20px;
-    width: 1350px;
-    max-width: 1440px;
-    box-sizing: border-box;
 }
 
 h2 {
@@ -50,53 +26,108 @@ h2 {
     box-sizing: border-box;
 }
 
-.btn {
-    padding: 10px 20px;
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    max-width: 600px;
+}
+
+.edit-container {
+    width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    position: relative;
+}
+
+.edit-container h2 {
+    text-align: center;
+}
+
+.edit-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-container .form-group {
+    margin-bottom: 20px;
+}
+
+.edit-container .form-control {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.edit-container .btn-primary {
+    background-color: #007bff;
+    color: white;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
+    padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
 }
 
-.btn:hover {
+.edit-container .btn-primary:hover {
     background-color: #0056b3;
 }
 
-.back-link {
-    margin-top: 20px;
-    text-decoration: none;
-    color: #007bff;
+.edit-container .btn-danger {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
-.back-link:hover {
-    text-decoration: underline;
+.edit-container .btn-danger:hover {
+    background-color: #c82333;
+}
+
+.card-container {
+    width: 900px; /* Ensure this matches the width of the flashcard */
+    height: 600px; /* Ensure this matches the height of the flashcard */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* Center the card container */
 }
 
 .flashcard {
     perspective: 1000px;
-    margin: 5px;
-    cursor: pointer;
-    flex: 1 0 calc(33.333% - 30px);
-    max-width: 33%;
+    width: 100%; /* Maintain 100% width within the container */
+    height: 100%; /* Maintain 100% height within the container */
 }
 
 .flashcard-inner {
-    width: 100%;
-    height: 650px; /* New height */
+    width: 900px;
+    height: 600px;
     text-align: left;
     transition: transform 0.6s;
     transform-style: preserve-3d;
     position: relative;
-}
-
-.flashcard-footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-top: 20px;
 }
 
 .flashcard.flipped .flashcard-inner {
@@ -110,7 +141,7 @@ h2 {
     backface-visibility: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -122,51 +153,77 @@ h2 {
 
 .flashcard-back {
     transform: rotateY(180deg);
-    justify-content: center;
 }
-
 
 .flashcard-front p, .flashcard-back p {
-    font-size: 13px;
+    font-size: 16px;
     word-wrap: break-word;
-    white-space: pre-wrap;
+    white-space: pre-wrap;  /* Preserve formatting */
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-form div {
-    margin-bottom: 10px;
-}
-
-.add-card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    text-decoration: none;
-    color: inherit;
-    font-size: 4em;
-    font-weight: bold;
-}
-
-.add-card:hover .flashcard-inner {
-    transform: none; /* Prevent flip on hover for add card */
-}
-
-.edit-link {
-    display: block;
+.view-link {
+    display: inline-block;
     margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
     text-decoration: none;
-    color: #007bff;
+    border-radius: 5px;
 }
 
-.edit-link:hover {
-    text-decoration: underline;
+.view-link:hover {
+    background-color: #0056b3;
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px; /* Ensure this matches the width of the card container */
+    margin-bottom: 20px;
+}
+
+.nav-buttons .prev, .nav-buttons .next {
+    height: 600px; /* Ensure this matches the height of the card */
+    width: 200px; /* Updated width */
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin: 0 15px; /* Adding margin between the buttons and the card container */
+    position: relative;
+}
+
+.nav-buttons .prev:before,
+.nav-buttons .next:before {
+    content: '';
+    display: inline-block;
+    border: solid #28a745;
+    border-width: 0 20px 20px 0;
+    padding: 40px;
+    transform: rotate(135deg);
+    position: absolute;
+}
+
+.nav-buttons .prev:before {
+    transform: translate(-50%, -50%) rotate(135deg); /* Center and rotate for left-facing arrow */
+}
+
+.nav-buttons .next:before {
+    transform: translate(-50%, -50%) rotate(-45deg); /* Center and rotate for right-facing arrow */
+}
+
+.add-button, .edit-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.add-button:hover, .edit-button:hover {
+    background-color: #218838;
 }
 
 .modal {
@@ -175,7 +232,7 @@ form div {
     z-index: 1; 
     left: 0;
     top: 0;
-    width: 100%; 
+    width: 100%;
     height: 100%; 
     overflow: auto; 
     background-color: rgb(0,0,0); 
@@ -192,6 +249,12 @@ form div {
     max-width: 600px;
 }
 
+.modal-content pre {
+    white-space: pre-wrap;       /* Wraps long lines */
+    word-wrap: break-word;       /* Breaks words if needed */
+    word-break: break-word;      /* Ensures words break at appropriate points */
+}
+
 .close {
     color: #aaa;
     float: right;
@@ -206,16 +269,16 @@ form div {
     cursor: pointer;
 }
 
-.view-link {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
+.btn {
+    padding: 10px 20px;
+    border: none;
     border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
 }
 
-.view-link:hover {
+.btn:hover {
     background-color: #0056b3;
 }

@@ -7,64 +7,39 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="flash-container">
-        {% for card in flashcards %}
-        <div class="flashcard" id="flashcard-{{ card.id }}" onclick="this.classList.toggle('flipped')">
-            <div class="flashcard-inner">
-                <div class="flashcard-front">
-                    <p>{{ card.question | safe }}</p>
-                    {% if card.additional_content %}
-                        <a href="javascript:void(0);" onclick="openModal({{ card.id }})" class="view-link">View More</a>
-                    {% endif %}
-                </div>
-                <div class="flashcard-back">
-                    <div class="flashcard-content">
-                        <p>{{ card.answer }}</p>
-                    </div>
-                    <div class="flashcard-footer">
-                        <a href="{{ url_for('edit', id=card.id) }}" class="edit-link">Edit</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="modal-{{ card.id }}" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal({{ card.id }})">&times;</span>
-                <pre>{{ card.additional_content }}</pre>
-            </div>
-        </div>
-        {% endfor %}
-        <div class="flashcard" onclick="window.location.href='{{ url_for('add') }}'">
-            <div class="flashcard-inner">
-                <div class="flashcard-front">
-                    <p>+</p>
-                </div>
-                <div class="flashcard-back">
-                    <div class="flashcard-content">
-                        <p>Add New Card</p>
+    <div class="container">
+        <div class="nav-buttons">
+            <button class="prev" onclick="showPreviousCard()"></button>
+            <div class="card-container">
+                {% for card in flashcards %}
+                <div class="flashcard" id="flashcard-{{ card.id }}" style="display: none;" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <p>{{ card.question | safe }}</p>
+                            {% if card.additional_content %}
+                            <a href="javascript:void(0);" onclick="openModal(event, {{ card.id }})" class="view-link">View More</a>
+                            {% endif %}
+                        </div>
+                        <div class="flashcard-back">
+                            <div class="flashcard-content">
+                                <p>{{ card.answer }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div id="modal-{{ card.id }}" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal({{ card.id }})">&times;</span>
+                        <pre>{{ card.additional_content }}</pre>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
+            <button class="next" onclick="showNextCard()"></button>
         </div>
+        <button class="add-button" onclick="window.location.href='{{ url_for('add') }}'">Add New Card</button>
+        <button class="edit-button" onclick="editCurrentCard()">Edit Current Card</button>
     </div>
-    <script>
-        function openModal(id) {
-            event.stopPropagation();
-            document.getElementById('modal-' + id).style.display = 'block';
-        }
-
-        function closeModal(id) {
-            document.getElementById('modal-' + id).style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            var modals = document.getElementsByClassName('modal');
-            for (var i = 0; i < modals.length; i++) {
-                if (event.target == modals[i]) {
-                    modals[i].style.display = "none";
-                }
-            }
-        }
-    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
