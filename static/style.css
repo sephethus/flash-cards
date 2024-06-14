@@ -146,7 +146,11 @@ form div {
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    background-color: #000000;
+    color: #00FF00; /* Green color */
+    /* font-family: 'VT323', monospace; /* Apply VT323 font (does not support bionic text) */
+    font-family: 'Courier New', Courier, monospace;
+    border: 1px solid #00FF00;
     padding: 20px;
     box-sizing: border-box;
 }
@@ -196,7 +200,7 @@ form div {
 .nav-buttons .next:before {
     content: '';
     display: inline-block;
-    border: solid #28a745;
+    border: solid #00FF00;
     border-width: 0 20px 20px 0;
     padding: 40px;
     transform: rotate(135deg);
@@ -223,7 +227,7 @@ form div {
 }
 
 .add-button:hover, .edit-button:hover {
-    background-color: #218838;
+    background-color: #00FF00;
 }
 
 .modal {
