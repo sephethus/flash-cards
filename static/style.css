@@ -282,3 +282,7 @@ form div {
 .btn:hover {
     background-color: #0056b3;
 }
+
+.flashcard-back p strong {
+    font-weight: bold;
+}

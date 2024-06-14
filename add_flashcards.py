@@ -1,0 +1,17 @@
+from app import db, Flashcard
+
+flashcards = [
+    {'question': 'Mountkirk Games gaming servers are not automatically scaling properly. Last month, they rolled out a new feature, which suddenly became very popular. A record number of users are trying to use the service, but many of them are getting 503 errors and very slow response times. What should they investigate first?', 'answer': 'B. Verify that the project quota hasn\'t been exceeded.'},
+    {'question': 'Mountkirk Games has deployed their new back end on Google Cloud Platform. You want to create thorough testing process for new versions of the back end before they are released to the public, you want the testing environment to scale in an economical way. How would you design the process?', 'answer': 'A: create a scalable environment and GCP for simulating production load.'},
+    {'question': 'Mountkirk Games wants you to design their new testing strategy. How should the test coverage differ from their existing back-ends on other platforms?', 'answer': 'A: Tests should scale well beyond the prior approaches'},
+    {'question': 'Mountkirk Games wants to set up a real-time analytics platform for their new game. The new platform must meet their technical requirements. Which combination of Google technologies will meet all of their requirements?', 'answer': 'B: Cloud Dataflow, Cloud Storage, Cloud Pub/Sub, and BigQuery'},
+    {'question': 'Mountkirk Games needs to create a repeatable and configurable mechanism for deploying isolated application environments. Developers and testers can access each other\'s environments and resources, but they cannot access staging or production resources. The staging environment needs access to some services from production. What should you do to isolate development environments from staging and production?', 'answer': 'D. Create one project for development, a second for staging and a third for production.'},
+    {'question': 'Mountkirk Games wants to set up a continuous delivery pipeline. Their architecture includes many small services that they want to be able to update and roll back quickly. Mountkirk Games has the following requirements: Services are deployed redundantly across multiple regions ni the US and Europe. • Only frontend services are exposed on the public internet. They can provide a single frontend IP for their fleet of services. Deployment artifacts are immutable. Which set of products should they use?', 'answer': 'C. Google Container Registry, Google Kubernetes Engine (GKE), Google HTTP(s) Load Balancer'},
+    {'question': 'Mountkirk Games needs to create a repeatable and configurable mechanism for deploying isolated application environments. Developers and testers can access each other\'s environments and resources, but they cannot access staging or production resources. The staging environment needs access to some services from production. What should you do to isolate development environments from staging and production?', 'answer': 'D. Create one project for development, a second for staging and a third for production.'}
+]
+
+for card in flashcards:
+    new_card = Flashcard(question=card['question'], answer=card['answer'])
+    db.session.add(new_card)
+
+db.session.commit()

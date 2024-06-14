@@ -1,12 +1,35 @@
 document.addEventListener("DOMContentLoaded", function() {
     const cardContainer = document.querySelector('.card-container');
     const cards = Array.from(document.querySelectorAll('.flashcard')); // Convert NodeList to Array
+    cards.forEach(card => {
+        const answerElement = card.querySelector('.flashcard-back p');
+        if (answerElement) {
+            formatAnswer(answerElement);
+        }
+    });
     // shuffleArray(cards);
     // reorderCards(cardContainer, cards);
     // currentCardIndex = 0; // Initialize the currentCardIndex (set last cards.length - 1;)
     currentCardIndex = cards.length - 1;
     showCard(currentCardIndex); // Show the first card after shuffling
 });
+
+function formatAnswer(answerElement) {
+    const text = answerElement.innerText;
+    const lines = text.split('\n');
+    if (lines.length > 0) {
+        // Bold the first line
+        lines[0] = `<strong>${lines[0]}</strong>`;
+        // Apply Bionic Reading formatting to the rest of the lines
+        for (let i = 1; i < lines.length; i++) {
+            lines[i] = lines[i].split(' ').map(word => {
+                const midIndex = Math.ceil(word.length / 2);
+                return `<strong>${word.slice(0, midIndex)}</strong>${word.slice(midIndex)}`;
+            }).join(' ');
+        }
+        answerElement.innerHTML = lines.join('<br>');
+    }
+}
 
 let currentCardIndex;
 
@@ -64,6 +87,18 @@ function editCurrentCard() {
     const cardId = currentCard.id.split('-')[1];
     window.location.href = `/edit/${cardId}`;
 }
+
+function applyBionicReading(text) {
+    // Implement the Bionic Reading technique
+    const words = text.split(' ');
+    const bionicWords = words.map(word => {
+        const middle = word.slice(1, -1);
+        const highlighted = word[0] + '<span class="important">' + middle + '</span>' + word[word.length - 1];
+        return highlighted;
+    });
+    return bionicWords.join(' ');
+}
+
 
 // Initially show the first card
 showCard(currentCardIndex);
