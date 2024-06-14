@@ -6,6 +6,11 @@ document.addEventListener("DOMContentLoaded", function() {
         if (answerElement) {
             formatAnswer(answerElement);
         }
+
+        const questionElement = card.querySelector('.flashcard-front p');
+        if (questionElement) {
+            bionicQuestion(questionElement);
+        }
     });
     // shuffleArray(cards);
     // reorderCards(cardContainer, cards);
@@ -13,6 +18,19 @@ document.addEventListener("DOMContentLoaded", function() {
     currentCardIndex = cards.length - 1;
     showCard(currentCardIndex); // Show the first card after shuffling
 });
+
+function bionicQuestion(answerElement) {
+    const text = answerElement.innerText;
+    const lines = text.split('\n');
+    if (lines.length > 0) {
+        // Bold the first line
+        lines[0] = lines[0].split(' ').map(word => {
+            const midIndex = Math.ceil(word.length / 2);
+            return `<strong>${word.slice(0, midIndex)}</strong>${word.slice(midIndex)}`;
+        }).join(' ');
+        answerElement.innerHTML = lines.join('<br>');
+    }
+}
 
 function formatAnswer(answerElement) {
     const text = answerElement.innerText;

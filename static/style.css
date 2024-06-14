@@ -283,6 +283,7 @@ form div {
     background-color: #0056b3;
 }
 
+.flashcard-front p strong,
 .flashcard-back p strong {
     font-weight: bold;
 }
