@@ -12,10 +12,24 @@ document.addEventListener("DOMContentLoaded", function() {
             bionicQuestion(questionElement);
         }
     });
+
+    // Get the card ID from the URL hash
+    const hash = window.location.hash;
+    let currentCardId = null;
+    if (hash.startsWith('#flashcard-')) {
+        currentCardId = parseInt(hash.replace('#flashcard-', ''), 10);
+    }
+
+    // Set currentCardIndex based on the card ID from the URL hash or default to the last card
+    if (currentCardId !== null) {
+        currentCardIndex = cards.findIndex(card => parseInt(card.id.split('-')[1], 10) === currentCardId);
+    } else {
+        currentCardIndex = cards.length - 1; // Default to the last card or use shuffle and reorder.
+    }
+
     // shuffleArray(cards);
     // reorderCards(cardContainer, cards);
     // currentCardIndex = 0; // Initialize the currentCardIndex (set last cards.length - 1;)
-    currentCardIndex = cards.length - 1;
     showCard(currentCardIndex); // Show the first card after shuffling
 });
 

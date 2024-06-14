@@ -68,7 +68,7 @@ def delete(id):
     db.session.delete(flashcard)
     db.session.commit()
     flash('Flashcard deleted successfully')
-    return redirect(url_for('index'))
+    return redirect(url_for('index') + f'#flashcard-{flashcard.id}')
 
 if __name__ == '__main__':
     app.run(debug=True)
