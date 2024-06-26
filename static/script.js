@@ -27,9 +27,9 @@ document.addEventListener("DOMContentLoaded", function() {
         currentCardIndex = cards.length - 1; // Default to the last card or use shuffle and reorder.
     }
 
-    // shuffleArray(cards);
-    // reorderCards(cardContainer, cards);
-    // currentCardIndex = 0; // Initialize the currentCardIndex (set last cards.length - 1;)
+    shuffleArray(cards);
+    reorderCards(cardContainer, cards);
+    currentCardIndex = 0; // Initialize the currentCardIndex (set last cards.length - 1;)
     showCard(currentCardIndex); // Show the first card after shuffling
 });
 
