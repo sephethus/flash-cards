@@ -12,6 +12,8 @@ h2 {
     margin-bottom: 20px;
 }
 
+/* FORM FOR ADD & EDIT */
+
 .form-group {
     margin-bottom: 15px;
     width: 100%;
@@ -36,13 +38,6 @@ form div {
     margin-bottom: 10px;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80%;
-    max-width: 600px;
-}
 
 .edit-container {
     width: 700px;
@@ -106,6 +101,16 @@ form div {
     background-color: #c82333;
 }
 
+/* CONTAINER THAT HOLDS THE FLASHCARDS */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    max-width: 600px;
+}
+
 .card-container {
     width: 900px; /* Ensure this matches the width of the flashcard */
     height: 600px; /* Ensure this matches the height of the flashcard */
@@ -114,6 +119,8 @@ form div {
     align-items: center;
     margin: 0 auto; /* Center the card container */
 }
+
+/* FLASHCARD SETTINGS */
 
 .flashcard {
     perspective: 1000px;
@@ -164,6 +171,13 @@ form div {
     word-wrap: break-word;
     white-space: pre-wrap;  /* Preserve formatting */
 }
+
+.flashcard-front p strong,
+.flashcard-back p strong {
+    font-weight: bold;
+}
+
+/* NAV */
 
 .view-link {
     display: inline-block;
@@ -230,6 +244,8 @@ form div {
     background-color: #00FF00;
 }
 
+/* ADDITIONAL INFO BOX */
+
 .modal {
     display: none; 
     position: fixed; 
@@ -277,6 +293,8 @@ form div {
     cursor: pointer;
 }
 
+/* EDIT/ADD PAGE BUTTONS */
+
 .btn {
     padding: 10px 20px;
     border: none;
@@ -291,7 +309,12 @@ form div {
     background-color: #0056b3;
 }
 
-.flashcard-front p strong,
-.flashcard-back p strong {
-    font-weight: bold;
+/* CARD NUMBER FOR KEEPING TRACK */
+
+.card-number {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px; /* Adjust size as needed */
+    color: #00FF00; /* Green color to match the theme */
 }

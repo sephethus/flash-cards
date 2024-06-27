@@ -1,17 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const cardContainer = document.querySelector('.card-container');
     const cards = Array.from(document.querySelectorAll('.flashcard')); // Convert NodeList to Array
-    cards.forEach(card => {
-        const answerElement = card.querySelector('.flashcard-back p');
-        if (answerElement) {
-            formatAnswer(answerElement);
-        }
-
-        const questionElement = card.querySelector('.flashcard-front p');
-        if (questionElement) {
-            bionicQuestion(questionElement);
-        }
-    });
 
     // Get the card ID from the URL hash
     const hash = window.location.hash;
@@ -21,20 +10,40 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Set currentCardIndex based on the card ID from the URL hash or default to the last card
-    if (currentCardId !== null) {
-        currentCardIndex = cards.findIndex(card => parseInt(card.id.split('-')[1], 10) === currentCardId);
-    } else {
-        currentCardIndex = cards.length - 1; // Default to the last card or use shuffle and reorder.
-    }
-
+    // if (currentCardId !== null) {
+    //    currentCardIndex = cards.findIndex(card => parseInt(card.id.split('-')[1], 10) === currentCardId);
+    // } else {
+    //    currentCardIndex = cards.length - 1; // Default to the last card or use shuffle and reorder.
+    //}
     shuffleArray(cards);
     reorderCards(cardContainer, cards);
     currentCardIndex = 0; // Initialize the currentCardIndex (set last cards.length - 1;)
+
+    cards.forEach((card, index) => {
+        const cardNumberElement = card.querySelector('.card-number');
+        const answerElement = card.querySelector('.flashcard-back p');
+        const questionElement = card.querySelector('.flashcard-front p');
+
+        if (answerElement) {
+            formatAnswer(answerElement);
+        }
+        
+        if (questionElement) {
+            bionicQuestion(questionElement);
+        }
+
+        if (cardNumberElement) {
+            cardNumberElement.textContent = index + 1;
+        }
+    });
+
     showCard(currentCardIndex); // Show the first card after shuffling
+
+
 });
 
-function bionicQuestion(answerElement) {
-    const text = answerElement.innerText;
+function bionicQuestion(questionElement) {
+    const text = questionElement.innerText;
     const lines = text.split('\n');
     if (lines.length > 0) {
         // Bold the first line
@@ -42,7 +51,7 @@ function bionicQuestion(answerElement) {
             const midIndex = Math.ceil(word.length / 2);
             return `<strong>${word.slice(0, midIndex)}</strong>${word.slice(midIndex)}`;
         }).join(' ');
-        answerElement.innerHTML = lines.join('<br>');
+        questionElement.innerHTML = lines.join('<br>');
     }
 }
 

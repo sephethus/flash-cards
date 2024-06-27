@@ -18,7 +18,8 @@
                     <div class="flashcard-inner">
                         <div class="flashcard-front">
                             <p>{{ card.question | safe }}</p>
-                            {% if card.additional_content %}
+                            <p class="card-number" id="card-number-{{ card.id }}"></p>
+                                {% if card.additional_content %}
                             <a href="javascript:void(0);" onclick="openModal(event, {{ card.id }})" class="view-link">View More</a>
                             {% endif %}
                         </div>
