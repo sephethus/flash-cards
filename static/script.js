@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
     if (hash.startsWith('#flashcard-')) {
         currentCardId = parseInt(hash.replace('#flashcard-', ''), 10);
     }
+    
+    //Uncomment the below lines and comment out the shuffle and reorder lines if you want to add and edit new cards.
 
     // Set currentCardIndex based on the card ID from the URL hash or default to the last card
     // if (currentCardId !== null) {
