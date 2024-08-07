@@ -148,8 +148,8 @@ form div {
     backface-visibility: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -162,6 +162,11 @@ form div {
     box-sizing: border-box;
 }
 
+.flashcard-content {
+    width: 100%;
+    text-align: left; /* Left-align the text */
+}
+
 .flashcard-back {
     transform: rotateY(180deg);
 }
@@ -170,12 +175,27 @@ form div {
     font-size: 16px;
     word-wrap: break-word;
     white-space: pre-wrap;  /* Preserve formatting */
+    text-align: left;
+    line-height: 1.0;
+    margin: 0;
 }
 
 .flashcard-front p strong,
 .flashcard-back p strong {
     font-weight: bold;
 }
+
+.flashcard-front img {
+    max-width: 90%;
+    max-height: 90%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    padding: 10px; /* Add padding to avoid overlapping with text */
+    box-sizing: border-box;
+    border: #00FF00;
+}
+
 
 /* NAV */
 
@@ -187,6 +207,7 @@ form div {
     color: white;
     text-decoration: none;
     border-radius: 5px;
+    align-self: center;
 }
 
 .view-link:hover {
@@ -249,7 +270,7 @@ form div {
 .modal {
     display: none; 
     position: fixed; 
-    z-index: 1; 
+    z-index: 1000; 
     left: 0;
     top: 0;
     width: 100%;
@@ -273,6 +294,13 @@ form div {
     border: 1px solid #00FF00;
 }
 
+.modal-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+}
+
 .modal-content pre {
     white-space: pre-wrap;       /* Wraps long lines */
     word-wrap: break-word;       /* Breaks words if needed */
@@ -289,6 +317,50 @@ form div {
 .close:hover,
 .close:focus {
     color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Image Modal */
+
+/* Modal styles for full-size images */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.image-modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+.image-modal-content img {
+    width: 100%;
+    height: auto;
+}
+
+.image-modal .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.image-modal .close:hover,
+.image-modal .close:focus {
+    color: #bbb;
     text-decoration: none;
     cursor: pointer;
 }

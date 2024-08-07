@@ -6,7 +6,6 @@
     <title>Flashcards</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-
 </head>
 <body>
     <div class="container">
@@ -19,8 +18,11 @@
                         <div class="flashcard-front">
                             <p>{{ card.question | safe }}</p>
                             <p class="card-number" id="card-number-{{ card.id }}"></p>
-                                {% if card.additional_content %}
-                            <a href="javascript:void(0);" onclick="openModal(event, {{ card.id }})" class="view-link">View More</a>
+                            {% if card.additional_content and card.additional_content|striptags|trim != '' %}
+                                <script>console.log('Additional content for card {{ card.id }}: {{ card.additional_content }}');</script>
+                                <a href="javascript:void(0);" onclick="openModal(event, {{ card.id }})" class="view-link">View More</a>
+                            {% else %}
+                                <script>console.log('No additional content for card {{ card.id }}');</script>
                             {% endif %}
                         </div>
                         <div class="flashcard-back">
@@ -33,7 +35,7 @@
                 <div id="modal-{{ card.id }}" class="modal">
                     <div class="modal-content">
                         <span class="close" onclick="closeModal({{ card.id }})">&times;</span>
-                        <pre>{{ card.additional_content }}</pre>
+                        <div id="modal-content-{{ card.id }}">{{ card.additional_content | safe }}</div>
                     </div>
                 </div>
                 {% endfor %}
@@ -43,6 +45,7 @@
         <button class="add-button" onclick="window.location.href='{{ url_for('add') }}'">Add New Card</button>
         <button class="edit-button" onclick="editCurrentCard()">Edit Current Card</button>
     </div>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

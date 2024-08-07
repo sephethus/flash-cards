@@ -1,4 +1,171 @@
 document.addEventListener("DOMContentLoaded", function() {
+    console.log("DOM fully loaded and parsed");
+
+    // Modal functionality for full-size images in questions
+    var imageModal = document.createElement('div');
+    imageModal.classList.add('image-modal');
+    var imageModalContent = document.createElement('div');
+    imageModalContent.classList.add('image-modal-content');
+    imageModal.appendChild(imageModalContent);
+    var closeButton = document.createElement('span');
+    closeButton.classList.add('close');
+    closeButton.innerHTML = '&times;';
+    imageModal.appendChild(closeButton);
+    document.body.appendChild(imageModal);
+
+    closeButton.onclick = function() {
+        imageModal.style.display = 'none';
+    };
+
+    window.onclick = function(event) {
+        if (event.target == imageModal) {
+            imageModal.style.display = 'none';
+        }
+    };
+
+    // Handle image clicks on the front of the flashcard
+    document.querySelectorAll('.flashcard-front img').forEach(function(img) {
+        img.addEventListener('click', function() {
+            imageModalContent.innerHTML = '<img src="' + img.src + '">';
+            imageModal.style.display = 'block';
+        });
+    });
+
+    // Modal functionality for additional info
+    var additionalModal = document.createElement('div');
+    additionalModal.classList.add('modal');
+    var additionalModalContent = document.createElement('div');
+    additionalModalContent.classList.add('modal-content');
+    additionalModal.appendChild(additionalModalContent);
+    var closeAdditionalButton = document.createElement('span');
+    closeAdditionalButton.classList.add('close');
+    closeAdditionalButton.innerHTML = '&times;';
+    additionalModal.appendChild(closeAdditionalButton);
+    document.body.appendChild(additionalModal);
+
+    closeAdditionalButton.onclick = function() {
+        additionalModal.style.display = 'none';
+    };
+
+    window.onclick = function(event) {
+        if (event.target == additionalModal) {
+            additionalModal.style.display = 'none';
+        }
+    };
+
+    document.querySelectorAll('.view-link').forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            var cardId = this.getAttribute('data-card-id');
+            var additionalContent = document.getElementById('modal-content-' + cardId).innerHTML;
+            additionalModalContent.innerHTML = additionalContent;
+            additionalModal.style.display = 'block';
+        });
+    });
+
+    // Check if the Quill editors exist before initializing them
+    var quillQuestionEditor = document.getElementById('question-editor');
+    var quillAdditionalEditor = document.getElementById('additional-editor');
+
+    if (quillQuestionEditor && quillAdditionalEditor) {
+        var quillQuestion = new Quill('#question-editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    [{ 'header': [1, 2, false] }],
+                    ['bold', 'italic', 'underline'],
+                    ['image', 'code-block']
+                ]
+            }
+        });
+
+        var quillAdditional = new Quill('#additional-editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    [{ 'header': [1, 2, false] }],
+                    ['bold', 'italic', 'underline'],
+                    ['image', 'code-block']
+                ]
+            }
+        });
+        
+        if (window.isEditPage) {
+            quillQuestion.root.innerHTML = window.flashcardContent.question;
+            quillAdditional.root.innerHTML = window.flashcardContent.additional_content;
+        }
+
+        console.log("Quill editors initialized");
+
+        function handlePaste(event, quill) {
+            var clipboardData = event.clipboardData || window.clipboardData;
+            var items = clipboardData.items;
+            if (items) {
+                for (var i = 0; i < items.length; i++) {
+                    if (items[i].kind === 'file' && items[i].type.indexOf('image/') !== -1) {
+                        var file = items[i].getAsFile();
+                        event.preventDefault(); // Prevent the default pasting behavior
+
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            var range = quill.getSelection();
+                            quill.insertEmbed(range.index, 'image', e.target.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            }
+        }
+
+        quillQuestion.root.addEventListener('paste', function(event) {
+            handlePaste(event, quillQuestion);
+        });
+
+        quillAdditional.root.addEventListener('paste', function(event) {
+            handlePaste(event, quillAdditional);
+        });
+
+        const form = document.getElementById('flashcard-form');
+        console.log("Form element:", form);
+
+        const submitButton = document.getElementById('submit-button');
+        console.log("Submit button element:", submitButton);
+
+        if (form && submitButton) {
+            console.log("Form and submit button found, attaching event listener");
+            submitButton.addEventListener('click', function(e) {
+                console.log("Submit button clicked");
+                e.preventDefault();  // Prevent the default form submission
+
+                const questionTextarea = document.getElementById('question');
+                const additionalTextarea = document.getElementById('additional_content');
+                questionTextarea.value = quillQuestion.root.innerHTML;
+                additionalTextarea.value = quillAdditional.root.innerHTML;
+
+                console.log("Textarea content (question):", questionTextarea.value);
+                console.log("Textarea content (answer):", additionalTextarea.value);
+                console.log("Quill content (question):", quillQuestion.root.innerHTML);
+                console.log("Quill content (answer):", quillAdditional.root.innerHTML);
+
+                questionTextarea.style.visibility = 'visible';
+                additionalTextarea.style.visibility = 'visible';
+
+                console.log("Trying to focus");
+                questionTextarea.focus();
+                additionalTextarea.focus();
+                console.log("Tried to focus");
+
+                questionTextarea.style.visibility = 'hidden';
+                additionalTextarea.style.visibility = 'hidden';
+
+                console.log("Submitting the form");
+                form.submit();
+            });
+        } else {
+            console.log("Form or submit button not found");
+        }
+    }
+
     const cardContainer = document.querySelector('.card-container');
     const cards = Array.from(document.querySelectorAll('.flashcard')); // Convert NodeList to Array
 

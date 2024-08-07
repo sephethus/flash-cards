@@ -5,29 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Flashcard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 <body>
     <div class="edit-container">
         <h2>Add a New Flashcard</h2>
-        <form method="POST" action="{{ url_for('add') }}">
+        <form id="flashcard-form" method="POST" action="{{ url_for('add') }}">
             {{ form.hidden_tag() }}
             <div class="form-group">
                 {{ form.question.label }}<br>
-                {{ form.question(rows=15, class_="form-control") }}<br>
+                <div id="question-editor" class="form-control" style="height: 200px;"></div>
+                {{ form.question(rows=15, class="form-control", id="question", style="display:none;") }}<br>
             </div>
             <div class="form-group">
                 {{ form.answer.label }}<br>
-                {{ form.answer(rows=15, class_="form-control") }}<br>
+                {{ form.answer(rows=15, class="form-control") }}<br>
             </div>
             <div class="form-group">
                 {{ form.additional_content.label }}<br>
-                {{ form.additional_content(rows=15, class_="form-control") }}<br>
+                <div id="additional-editor" class="form-control" style="height: 200px;"></div>
+                {{ form.additional_content(rows=15, class="form-control", id="additional_content", style="display:none;") }}
             </div>
             <div class="form-group">
-                {{ form.submit(class_="btn btn-primary") }}
+                <button type="submit" class="btn btn-primary" id="submit-button">Add Card</button>
             </div>
         </form>
         <a href="{{ url_for('index') }}" class="back-link">Back to Flashcards</a>
     </div>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
