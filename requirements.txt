@@ -4,3 +4,4 @@ SQLAlchemy==1.4.25
 Flask-SQLAlchemy==2.5.1
 Flask-Migrate==3.1.0
 Werkzeug==2.0.2
+flask-cors

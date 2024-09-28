@@ -3,7 +3,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #000000;
+    background-color: #ffffff;
     margin: 0;
     font-family: Arial, sans-serif;
 }
@@ -153,11 +153,11 @@ form div {
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #000000;
-    color: #00FF00; /* Green color */
+    background-color: #ffffff;
+    color: #000000; /* Green color */
     /* font-family: 'VT323', monospace; /* Apply VT323 font (does not support bionic text) */
-    font-family: 'Courier New', Courier, monospace;
-    border: 1px solid #00FF00;
+    font-family: 'Ariel', Arial, Helvetica, sans-serif;
+    border: 1px solid #000000;
     padding: 20px;
     box-sizing: border-box;
 }
@@ -193,7 +193,7 @@ form div {
     margin: 0 auto;
     padding: 10px; /* Add padding to avoid overlapping with text */
     box-sizing: border-box;
-    border: #00FF00;
+    border: #000000;
 }
 
 
@@ -203,7 +203,7 @@ form div {
     display: inline-block;
     margin-top: 10px;
     padding: 5px 10px;
-    background-color: #06d506;
+    background-color: #0fe8b2;
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -211,7 +211,7 @@ form div {
 }
 
 .view-link:hover {
-    background-color: #00FF00;
+    background-color: hsl(120, 100%, 50%);
 }
 
 .nav-buttons {
@@ -235,7 +235,7 @@ form div {
 .nav-buttons .next:before {
     content: '';
     display: inline-block;
-    border: solid #00FF00;
+    border: solid #000000;
     border-width: 0 20px 20px 0;
     padding: 40px;
     transform: rotate(135deg);
@@ -254,7 +254,7 @@ form div {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #28a745;
+    background-color: #0fe8b2;
     color: white;
     border: none;
     border-radius: 5px;
@@ -285,10 +285,10 @@ form div {
     background-color: #000000;
     margin: 5% auto; 
     padding: 20px;
-    border: 1px solid #00FF00;
+    border: 1px solid #000000;
     width: 80%; 
     max-width: 600px;
-    color: #00FF00; /* Green color */
+    color: #000000; /* Green color */
     /* font-family: 'VT323', monospace; /* Apply VT323 font (does not support bionic text) */
     font-family: 'Courier New', Courier, monospace;
     border: 1px solid #00FF00;
@@ -388,5 +388,5 @@ form div {
     top: 10px;
     right: 10px;
     font-size: 20px; /* Adjust size as needed */
-    color: #00FF00; /* Green color to match the theme */
+    color: #000000; /* Green color to match the theme */
 }
